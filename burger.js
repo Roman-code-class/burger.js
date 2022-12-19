@@ -44,10 +44,38 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('_pc');
   }
 
-  // плавный переход по сайту
-  const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
+  // плавный переход по сайту к началу сайта 
+//   const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
 
-  if (menuLinks.length) {
+//   if (menuLinks.length) {
+//     Array.from(menuLinks).forEach(menuLink => {
+//       menuLink.addEventListener('click', onMenuLinkClick);
+//     });
+
+//     function onMenuLinkClick (event) {
+//       event.preventDefault();
+
+//       const menuLink = event.target;
+//       const gotoDataset = menuLink.dataset.goto;
+//       const gotoBlock = document.querySelector(gotoDataset);
+
+//       if (gotoDataset && gotoBlock) {
+//         const wrapperOffsetHeight = document.querySelector('.wrapper')
+//         const gotoBlockValue = gotoBlock.getBoundingClientRect().top + window.pageYOffset - wrapperOffsetHeight;
+
+//         window.scrollTo({
+//           top: gotoBlockValue,
+//           behavior: 'smooth'
+//         });
+//       }
+//     }
+//   }
+// });
+
+// плавный переход по сайту по разделам  ы
+const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
+
+  if (menuLinks.length > 0) {
     Array.from(menuLinks).forEach(menuLink => {
       menuLink.addEventListener('click', onMenuLinkClick);
     });
@@ -60,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const gotoBlock = document.querySelector(gotoDataset);
 
       if (gotoDataset && gotoBlock) {
-        const wrapperOffsetHeight = document.querySelector('.wrapper')
-        const gotoBlockValue = gotoBlock.getBoundingClientRect().top + window.pageYOffset - wrapperOffsetHeight;
+        const headerOffsetHeight = document.querySelector('.menuLink.dataset.goto')
+        const gotoBlockValue = gotoBlock.getBoundingClientRect().top + window.pageYOffset - headerOffsetHeight - document.querySelector('.header').offsetHeight;
 
         window.scrollTo({
           top: gotoBlockValue,
