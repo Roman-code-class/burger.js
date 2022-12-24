@@ -31,18 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isMobile.any()) {
     document.body.classList.add('_touch');
 
-    let menuArrows = document.querySelectorAll('.menu_arrow')
+    let menuArrows = document.querySelectorAll('.menu_arrow');
 
-    if (menuArrows.length) {
-      Array.from(menuArrows).forEach(menuArrow => {
-        menuArrow.addEventListener('click', () => {
+    if (menuArrows.length > 0) {
+      for (let index = 0; index < menuArrows.length; index++) {
+        const menuArrow = menuArrows[index];
+        menuArrow.addEventListener("click", function(event){
           menuArrow.parentElement.classList.toggle('_active');
         });
-      })
+      }
     }
+
   } else {
     document.body.classList.add('_pc');
-  }
+  };
 
   // плавный переход по сайту к началу сайта 
 //   const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
@@ -88,8 +90,13 @@ const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
       const gotoBlock = document.querySelector(gotoDataset);
 
       if (gotoDataset && gotoBlock) {
-        const headerOffsetHeight = document.querySelector('.menuLink.dataset.goto')
-        const gotoBlockValue = gotoBlock.getBoundingClientRect().top + window.pageYOffset - headerOffsetHeight - document.querySelector('.header').offsetHeight;
+        const gotoBlockValue = gotoBlock.getBoundingClientRect().top + window.pageYOffset - document.querySelector('.header').offsetHeight;
+
+        if (iconMenu.classList.contains('_active')) {
+          document.body.classList.remove('_lock');
+          iconMenu.classList.remove('_active');
+          menuBody.classList.remove('_active');
+        }
 
         window.scrollTo({
           top: gotoBlockValue,
@@ -99,3 +106,15 @@ const menuLinks = document.querySelectorAll('.menu_link[data-goto]');
     }
   }
 });
+
+// Бургер 
+
+const iconMenu = document.querySelector ('.menu_icon');
+const menuBody = document.querySelector ('.menu_body');
+if (iconMenu) {
+iconMenu.addEventListener("click", function(e) {
+  document.body.classList.toggle('_lock');
+  iconMenu.classList.toggle('_active');
+  menuBody.classList.toggle('_active');
+});
+}
